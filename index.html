@@ -432,7 +432,6 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
       <h1 data-teks="login_judul">Portal Calon Santri</h1>
     </div>
     <p data-teks="login_pembuka">Untuk calon santri yang sudah melunasi biaya pendaftaran dan menerima kode registrasi. Semua informasi tahapan seleksi ada di sini.</p>
-    <ol class="steps" id="loginSteps"></ol>
   </div>
   <div class="login-form">
     <form id="loginForm" class="stack" style="gap:18px" novalidate>
@@ -635,7 +634,6 @@ function isiLogin(pub){
   $('loginNama').textContent = pub.info.lembaga;
   $('loginLabel').textContent = pub.info.tahunAjaran ? Tp('login_tahun_ajaran', { tahun_ajaran: pub.info.tahunAjaran }) : '';
   $('loginKontak').textContent = pub.info.kontak || '';
-  $('loginSteps').innerHTML = pub.tahap.map((t,i) => `<li><span class="n">${i+1}</span><div><b>${esc(t.judul)}</b><span>${rentang(t)}</span></div></li>`).join('');
 }
 function galatLogin(teks){ const e = $('loginErr'); e.textContent = teks; e.hidden = !teks; }
 
@@ -877,16 +875,10 @@ const V = {
   },
 
   ulang(){
-    /* Halaman ini hanya terbuka bagi yang dinyatakan lulus (lihat menuTampil). */
-    const u = D.peserta, t = tahap('ULANG'), s = t ? statusTahap(t) : null;
+    /* Halaman ini hanya terbuka bagi yang dinyatakan lulus (lihat menuTampil).
+       Sengaja langsung ke daftar langkah, tanpa ringkasan tanggal di atasnya. */
     return `
-    <div class="head"><h1>${T('menu_ulang')}</h1><p>${t ? `${rentang(t)}. ${esc(t.keterangan)}` : ''}</p></div>
-    ${t ? `<div class="card"><div class="kv">
-      <div><span class="label">${T('ulang_label_mulai')}</span><b>${fTgl(mulai(t))}</b></div>
-      <div><span class="label">${T('ulang_label_batas')}</span><b>${fTgl(akhir(t))} \u00b7 ${fJam(akhir(t))} WIB</b></div>
-      <div><span class="label">${T('label_status')}</span><b><span class="pill ${s==='active'?'warn':'idle'}">${s==='done' ? T('hasil_ulang_tutup') : s==='active' ? T('status_berlangsung') : T('ulang_status_belum')}</span></b></div>
-    </div></div>` : ''}
-    <p class="catatan">${TB('ulang_catatan', { nama: u.nama, tanggal: t ? fTgl(akhir(t)) : '\u2014' })}</p>
+    <div class="head"><h1>${T('menu_ulang')}</h1></div>
     <h2 class="sub-judul">${T('ulang_judul_langkah')}</h2>
     <div class="stack" style="gap:10px">${D.info.daftarUlang.map((x,i) => `
       <details class="kisi langkah"${i===0?' open':''}><summary><h3><span class="langkah-no">${i+1}</span>${esc(x.judul)}</h3></summary>
