@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Cetak Kartu Peserta ¬∑ Portal PSB</title>
+<title>Cetak Kartu Peserta &#xb7; Portal PSB</title>
 <link rel="icon" id="ikonLogo">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Portal PSB ‚Äî Malika Islamic Boarding School.
+/* Portal PSB \002014 Malika Islamic Boarding School.
    Warna: navy pesantren, emas kaligrafi, permukaan abu kebiruan, kartu putih membulat berbayang lembut.
    Layout: login = panel navy bergradasi + formulir; setelah masuk = kepala navy, navigasi samping (baris gulir di ponsel), satu kolom isi. */
 :root{
@@ -135,7 +135,7 @@ details.kisi summary{cursor:pointer;padding:16px 18px;display:flex;flex-wrap:wra
 details.kisi summary::-webkit-details-marker{display:none}
 details.kisi summary h3{display:flex;align-items:center;gap:.7rem}
 details.kisi summary h3::before{content:"+";flex:none;width:28px;height:28px;border-radius:.6rem;background:var(--soft);color:var(--link);display:grid;place-items:center;font-weight:700}
-details.kisi[open] summary h3::before{content:"‚Äì";background:var(--emas-soft);color:var(--accent)}
+details.kisi[open] summary h3::before{content:"\002013";background:var(--emas-soft);color:var(--accent)}
 details.kisi .meta{font-size:.78rem;color:var(--muted)}
 details.kisi .body{padding:14px 18px 18px;border-top:1px solid var(--line)}
 details.kisi ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:4px;max-width:70ch;font-size:.9rem}
@@ -309,16 +309,6 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
 /* Nama menu panjang ("Daftar Ulang & Step Selanjutnya") boleh dua baris di menu samping. */
 @media (min-width:821px){ nav.side a{white-space:normal;line-height:1.3} }
 
-/* Kotak pelunasan biaya di halaman hasil (yang lulus) */
-.pelunasan{border-left:4px solid var(--emas)}
-.pelunasan-angka{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.75rem}
-.pelunasan-angka>div{background:var(--emas-soft);border:1px solid var(--emas-line);border-radius:10px;padding:.75rem 1rem}
-.pelunasan-angka .label{display:block;font-size:.8rem;color:var(--muted)}
-.pelunasan-angka b{font-family:var(--display);font-size:1.15rem;color:var(--ink)}
-.rekening{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line);padding-top:12px}
-.rekening-no{display:flex;align-items:center;gap:8px;flex-wrap:wrap;letter-spacing:.04em}
-.tombol-salin{font-size:.72rem;padding:.2rem .6rem;min-height:0;letter-spacing:0}
-.unggah.tanpa-pratinjau{grid-template-columns:1fr}
 .bukti-status{border-radius:.75rem;padding:.7rem .9rem;border:1px solid;display:flex;flex-direction:column;gap:4px;font-size:.88rem}
 .bukti-status.ok{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-line)}
 .bukti-status.warn{background:var(--warn-bg);color:var(--warn);border-color:var(--warn-line)}
@@ -326,11 +316,77 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
 .bukti-status small{opacity:.85}
 .taut-lanjut{background:var(--soft);border:1px solid var(--line);border-radius:.75rem;padding:.7rem .9rem;font-size:.9rem;font-weight:600}
 
+/* Kartu menu di beranda (seperti MBS Care) */
+.menu-kartu{display:flex;flex-direction:column;gap:14px}
+.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 8px}
+.menu-ubin{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--ink);text-align:center;border-radius:1rem;padding:6px 2px;transition:transform .15s}
+.menu-ubin:active{transform:scale(.96)}
+.menu-ubin:focus-visible{outline:2px solid var(--emas);outline-offset:2px}
+.menu-ikon{position:relative;display:grid;place-items:center;width:54px;height:54px;border-radius:18px;color:var(--warna);background:color-mix(in srgb, var(--warna) 13%, var(--surface));border:1px solid color-mix(in srgb, var(--warna) 22%, var(--surface))}
+.menu-label{font-family:var(--display);font-weight:600;font-size:.78rem;line-height:1.3}
+.menu-titik{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font-size:.66rem;font-weight:700;display:grid;place-items:center;border:2px solid var(--surface)}
+@media (min-width:821px){ .menu-grid{grid-template-columns:repeat(4,minmax(0,1fr))} .menu-ubin:hover .menu-ikon{background:color-mix(in srgb, var(--warna) 20%, var(--surface))} }
+/* Ponsel & tablet: bilah menu disembunyikan \002014 menu ada di beranda, tiap halaman punya tombol kembali */
+.kembali{display:none}
+@media (max-width:820px){
+  nav.side{display:none}
+  .kembali{position:fixed;z-index:30;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--brand-ink);background:var(--brand);border-radius:99px;padding:.85rem 1.6rem;min-height:52px;box-shadow:0 10px 28px -8px rgb(11 30 75 / .55)}
+  .kembali:active{transform:translateX(-50%) scale(.96)}
+  /* ruang kosong di bawah supaya isi terakhir tidak tertutup tombol Beranda */
+  main{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+
+/* Halaman Tahapan: daftar sederhana seperti di halaman masuk, versi terang */
+.steps-terang li{background:var(--surface);border-color:var(--line);box-shadow:var(--shadow);align-items:center}
+.steps-terang li > div{flex:1;min-width:0}
+.steps-terang .n{background:var(--emas-soft);color:var(--accent)}
+.steps-terang b{font-size:.9rem;color:var(--ink)}
+.steps-terang span:not(.n):not(.pill){font-size:.8rem;color:var(--muted)}
+.steps-terang li.active{border-color:var(--emas)}
+.steps-terang li.done .n{background:var(--ok-bg);color:var(--ok)}
+.steps-terang .pill{flex:none;font-size:.69rem}
+.steps-terang .pill.ok{color:var(--ok)} .steps-terang .pill.warn{color:var(--warn)}
+
+/* Pelunasan (yang lulus): ringkas, fokus ke nomor rekening dan tombol unggah */
+.pelunasan{border-left:4px solid var(--emas)}
+.pelunasan-ringkas{font-size:.92rem}
+.rekening-kotak{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:var(--emas-soft);border:1px solid var(--emas-line);border-radius:1rem;padding:16px 12px}
+.rekening-bank{font-family:var(--display);font-weight:700;font-size:.85rem;color:var(--accent)}
+.rekening-no{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.rekening-no b{font-family:var(--display);font-size:1.55rem;font-weight:800;letter-spacing:.05em;color:var(--ink)}
+.rekening-an{font-size:.86rem;color:var(--muted)}
+.tombol-salin{font-size:.75rem;padding:.3rem .8rem;min-height:0}
+.pelunasan-catatan{font-size:.8rem;color:var(--muted)}
+.bukti-unggah{display:flex;flex-direction:column;gap:8px}
+.bukti-unggah small{text-align:center;font-size:.76rem}
+.btn-lebar{width:100%;justify-content:center;text-align:center;cursor:pointer}
+.tersembunyi:focus-visible + .btn-lebar{outline:2px solid var(--emas);outline-offset:2px}
+.bukti-dipilih{display:flex;align-items:center;gap:10px;font-size:.84rem;background:var(--soft);border-radius:.75rem;padding:8px 10px;min-width:0}
+.bukti-dipilih span{flex:1;min-width:0;overflow-wrap:anywhere}
+.bukti-dipilih img,.bukti-pdf{flex:none;width:40px;height:40px;border-radius:.5rem;object-fit:cover}
+.bukti-pdf{display:grid;place-items:center;background:var(--bad-bg);color:var(--bad);font-weight:700;font-size:.7rem}
+.tautan-ganti{flex:none;font-weight:600;color:var(--link);cursor:pointer;text-decoration:underline}
+
+.jadwal-tbl td.durasi{white-space:nowrap}
+/* Jadwal di ponsel: tiap acara jadi satu baris bertumpuk, tanpa geser ke samping */
+@media (max-width:640px){
+  .jadwal-tbl thead{display:none}
+  .jadwal-tbl,.jadwal-tbl tbody{display:block}
+  .jadwal-tbl tr{display:grid;grid-template-columns:92px minmax(0,1fr);grid-template-areas:"w k" "w d" "w t";column-gap:12px;row-gap:2px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .jadwal-tbl tr:last-child{border-bottom:0}
+  .jadwal-tbl td{display:block;padding:0;border:0}
+  .jadwal-tbl td.time{grid-area:w;white-space:normal;line-height:1.35}
+  .jadwal-tbl td.kegiatan{grid-area:k;font-weight:600}
+  .jadwal-tbl td.durasi{grid-area:d;font-size:.8rem;color:var(--muted)}
+  .jadwal-tbl td.ket{grid-area:t;font-size:.8rem}
+  .jadwal-tbl td.kosong{display:none}
+}
+
 </style>
 <style>
-/* Kartu peserta seleksi ‚Äî tegak, seukuran ID card (55 √ó 85 mm).
-   Perbandingannya tetap 22 √ó 34 em dan seluruh isinya memakai em: besar kartu
-   diatur lewat font-size pembungkusnya saja (13‚Äì16 px di layar; 2,5 mm di
+/* Kartu peserta seleksi \002014 tegak, seukuran ID card (55 \0000d7 85 mm).
+   Perbandingannya tetap 22 \0000d7 34 em dan seluruh isinya memakai em: besar kartu
+   diatur lewat font-size pembungkusnya saja (13\00201316 px di layar; 2,5 mm di
    kertas, sehingga 22 em = 55 mm dan 34 em = 85 mm).
    Warnanya tetap, bukan token tema, karena ini benda cetak: tampil sama di
    layar terang, gelap, dan kertas. Aksen (--kp-a) biru untuk SMP, merah SMA. */
@@ -363,7 +419,7 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
 
 </style>
 <style>
-  /* Lembar cetak: A4 tegak, 3 √ó 3 kartu, tiap kartu persis 55 √ó 85 mm, dengan
+  /* Lembar cetak: A4 tegak, 3 \0000d7 3 kartu, tiap kartu persis 55 \0000d7 85 mm, dengan
      garis potong putus-putus. Cetak pada skala 100%. */
   @page{ size:A4 portrait; margin:10mm }
   .lembar{ display:grid; grid-template-columns:repeat(auto-fill,22em); gap:14px; justify-content:center; font-size:11px; padding:0 16px 32px }
@@ -378,7 +434,7 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
 <body style="margin:0">
 <div class="cetak-bar tanpa-cetak">
   <div class="merek" style="color:var(--ink)"><span class="logo-b besar-l" style="box-shadow:var(--shadow)"><img data-logo alt="Logo Malika Islamic Boarding School"></span>
-    <div><b id="namaLembaga">Malika Islamic Boarding School</b><span style="color:var(--muted)">Cetak kartu peserta seleksi ¬∑ khusus panitia PSB</span></div></div>
+    <div><b id="namaLembaga">Malika Islamic Boarding School</b><span style="color:var(--muted)">Cetak kartu peserta seleksi &#xb7; khusus panitia PSB</span></div></div>
 
   <form id="formSandi" class="card stack">
     <div class="err" id="galat" role="alert" hidden></div>
@@ -397,7 +453,7 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
     </div>
     <p class="err" id="peringatan" hidden></p>
     <div class="row"><button class="btn" type="button" id="tombolCetak">Cetak</button><span class="muted" id="ringkas" style="font-size:.85rem"></span></div>
-    <p class="catatan">Ukuran kartu 5,5 √ó 8,5 cm (standar ID card). Kertas A4 tegak, sembilan kartu per lembar. Pada dialog cetak, skala harus 100% dan nyalakan ‚ÄúGrafik latar‚Äù (Background graphics) agar warnanya ikut tercetak.</p>
+    <p class="catatan">Ukuran kartu 5,5 &#xd7; 8,5 cm (standar ID card). Kertas A4 tegak, sembilan kartu per lembar. Pada dialog cetak, skala harus 100% dan nyalakan &#x201c;Grafik latar&#x201d; (Background graphics) agar warnanya ikut tercetak.</p>
   </div>
 </div>
 <div class="lembar" id="lembar"></div>
@@ -410,7 +466,7 @@ document.getElementById('ikonLogo').href = LOGO_PSB;
  * Alamat server portal (Google Apps Script).
  *
  * Tempel di sini alamat "Web app" yang didapat setelah menerbitkan Apps Script
- * ‚Äî bentuknya https://script.google.com/macros/s/‚Ä¶/exec. Lihat README.md.
+ * \u2014 bentuknya https://script.google.com/macros/s/\u2026/exec. Lihat README.md.
  *
  * Alamat ini memang terbaca siapa pun yang membuka halaman; itu tidak apa-apa.
  * Yang menjaga data adalah skripnya, bukan kerahasiaan alamatnya.
@@ -429,11 +485,11 @@ const simpanan = {
   set(k,v){ try{ v === null ? localStorage.removeItem(k) : localStorage.setItem(k,v) }catch(e){} },
 };
 
-/* ‚îÄ‚îÄ Teks portal ‚îÄ‚îÄ
+/* \u2500\u2500 Teks portal \u2500\u2500
    Seluruh tulisan tetap (judul, menu, label, kalimat) dikirim server dari
    lembar "Teks" di spreadsheet, sehingga panitia bisa mengubahnya tanpa
    menyentuh kode. Penanda seperti {nama} diisi di sini.
-   T  ‚Üí teks aman-HTML;  TB ‚Üí sama, nilai penandanya ditebalkan;  Tp ‚Üí teks polos. */
+   T  \u2192 teks aman-HTML;  TB \u2192 sama, nilai penandanya ditebalkan;  Tp \u2192 teks polos. */
 let TEKS = {};
 function pakaiTeks(t){ if(t && typeof t === 'object') TEKS = t; }
 function isiPenanda(teks, nilai, bungkus){
@@ -466,7 +522,7 @@ async function panggil(aksi, isi){
   catch(e){ throw new Error('Jawaban server tidak dapat dibaca. Coba lagi beberapa saat.'); }
 }
 
-/* Tanggal ‚Äî selalu ditulis dalam WIB, apa pun zona waktu perangkatnya. */
+/* Tanggal \u2014 selalu ditulis dalam WIB, apa pun zona waktu perangkatnya. */
 const fmt = o => new Intl.DateTimeFormat('id-ID', Object.assign({ timeZone:'Asia/Jakarta' }, o));
 const fTgl = d => fmt({day:'numeric',month:'long',year:'numeric'}).format(d);
 const fPendek = d => fmt({day:'numeric',month:'short'}).format(d);
@@ -474,11 +530,11 @@ const fJam = d => fmt({hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(
 const fHari = d => fmt({day:'numeric'}).format(d);
 const fBulan = d => fmt({month:'long',year:'numeric'}).format(d);
 const tgl0 = s => new Date(s + 'T12:00:00+07:00');
-/* "Ahad", bukan "Minggu" ‚Äî mengikuti penamaan hari di pesantren. */
+/* "Ahad", bukan "Minggu" \u2014 mengikuti penamaan hari di pesantren. */
 const fLengkap = s => fmt({weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(tgl0(s)).replace(/^Minggu/,'Ahad');
 
 /* Tulisan tahap tes: "19 Desember 2026", atau "19 atau 20 Desember 2026" bila
-   terentang beberapa hari ‚Äî seleksinya sehari saja per peserta, dan tanda
+   terentang beberapa hari \u2014 seleksinya sehari saja per peserta, dan tanda
    rentang membuat orang tua mengira anaknya harus hadir dua hari. */
 function rentangTes(mulaiIso, selesaiIso){
   const a = new Date(mulaiIso), b = new Date(selesaiIso);
@@ -503,10 +559,10 @@ function kartuHTML(a, info){
     <div class="kp-tengah"><div class="kp-foto">${a.foto ? `<img src="${esc(a.foto)}" alt="">` : `<div><b>${esc(inisial)}</b><small>${T('kartu_cetak_foto')}</small></div>`}</div></div>
     <div class="kp-bawah">
       <div class="kp-l">${T('kartu_cetak_nama')}</div><div class="kp-v nama${String(a.nama).length > 22 ? ' kecil' : ''}">${esc(a.nama)}</div>
-      <div class="kp-l">${T('kartu_cetak_asal')}</div><div class="kp-v sekolah">${esc(a.asal) || '‚Äî'}</div>
+      <div class="kp-l">${T('kartu_cetak_asal')}</div><div class="kp-v sekolah">${esc(a.asal) || '\u2014'}</div>
       <div class="kp-2">
-        <div><div class="kp-l">${T('kartu_cetak_tanggal')}</div><div class="kp-v tgl">${esc(a.hariTes ? fLengkap(a.hariTes) : (info.tanggalTes || '‚Äî'))}</div></div>
-        <div><div class="kp-l">${T('kartu_cetak_ruang')}</div><div class="kp-v">${esc(a.ruang) || '‚Äî'}</div></div>
+        <div><div class="kp-l">${T('kartu_cetak_tanggal')}</div><div class="kp-v tgl">${esc(a.hariTes ? fLengkap(a.hariTes) : (info.tanggalTes || '\u2014'))}</div></div>
+        <div><div class="kp-l">${T('kartu_cetak_ruang')}</div><div class="kp-v">${esc(a.ruang) || '\u2014'}</div></div>
         <div><div class="kp-l">${T('kartu_cetak_kode')}</div><div class="kp-v">${esc(a.kode)}</div></div>
         <div><div class="kp-l">${T('kartu_cetak_jenjang')}</div><div class="kp-v">${esc(a.jenjang)}</div></div>
       </div>
@@ -532,7 +588,7 @@ $('formSandi').addEventListener('submit', async e => {
   try{
     semua = [];
     for(let hal = 1, jumlah = 1; hal <= jumlah; hal++){
-      tombol.textContent = jumlah > 1 ? `Memuat ${hal}/${jumlah}‚Ä¶` : 'Memuat‚Ä¶';
+      tombol.textContent = jumlah > 1 ? `Memuat ${hal}/${jumlah}\u2026` : 'Memuat\u2026';
       const j = await panggil('kartu', { sandi, halaman: hal });
       if(!j.ok) throw new Error(j.pesan || 'Tidak dapat memuat kartu.');
       pakaiTeks(j.teks);
@@ -553,11 +609,11 @@ function gambar(){
   const s = { jenjang:$('sJenjang').value, jk:$('sJk').value, hari:$('sHari').value, ruang:$('sRuang').value };
   const tampil = semua.filter(k => (!s.jenjang || k.jenjang === s.jenjang) && (!s.jk || k.jk === s.jk) && (!s.hari || k.hariTes === s.hari) && (!s.ruang || k.ruang === s.ruang));
   $('lembar').innerHTML = tampil.map(k => kartuHTML(k, info)).join('');
-  $('ringkas').textContent = `${tampil.length} kartu ¬∑ ${Math.ceil(tampil.length / 9)} lembar A4`;
+  $('ringkas').textContent = `${tampil.length} kartu \u00b7 ${Math.ceil(tampil.length / 9)} lembar A4`;
   $('tombolCetak').textContent = `Cetak ${tampil.length} kartu`;
   const n = tampil.filter(k => k.diperbaiki).length, p = $('peringatan');
   p.hidden = !n;
-  p.textContent = n ? `${n} peserta pada daftar ini memperbaiki sendiri datanya (kolom ‚ÄúDiperbaiki Peserta‚Äù di spreadsheet). Periksa dulu sebelum mencetak.` : '';
+  p.textContent = n ? `${n} peserta pada daftar ini memperbaiki sendiri datanya (kolom \u201cDiperbaiki Peserta\u201d di spreadsheet). Periksa dulu sebelum mencetak.` : '';
 }
 ['sJenjang','sJk','sHari','sRuang'].forEach(id => $(id).addEventListener('change', gambar));
 $('tombolCetak').addEventListener('click', () => window.print());
