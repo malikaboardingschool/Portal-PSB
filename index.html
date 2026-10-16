@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#10265a">
-<title>Portal PSB · Malika Islamic Boarding School</title>
+<title>Portal PSB ¬∑ Malika Islamic Boarding School</title>
 <link rel="icon" id="ikonLogo">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
 <style>
-/* Portal PSB — Malika Islamic Boarding School.
+/* Portal PSB ‚Äî Malika Islamic Boarding School.
    Warna: navy pesantren, emas kaligrafi, permukaan abu kebiruan, kartu putih membulat berbayang lembut.
    Layout: login = panel navy bergradasi + formulir; setelah masuk = kepala navy, navigasi samping (baris gulir di ponsel), satu kolom isi. */
 :root{
@@ -137,7 +137,7 @@ details.kisi summary{cursor:pointer;padding:16px 18px;display:flex;flex-wrap:wra
 details.kisi summary::-webkit-details-marker{display:none}
 details.kisi summary h3{display:flex;align-items:center;gap:.7rem}
 details.kisi summary h3::before{content:"+";flex:none;width:28px;height:28px;border-radius:.6rem;background:var(--soft);color:var(--link);display:grid;place-items:center;font-weight:700}
-details.kisi[open] summary h3::before{content:"–";background:var(--emas-soft);color:var(--accent)}
+details.kisi[open] summary h3::before{content:"‚Äì";background:var(--emas-soft);color:var(--accent)}
 details.kisi .meta{font-size:.78rem;color:var(--muted)}
 details.kisi .body{padding:14px 18px 18px;border-top:1px solid var(--line)}
 details.kisi ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:4px;max-width:70ch;font-size:.9rem}
@@ -328,11 +328,28 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
 .bukti-status small{opacity:.85}
 .taut-lanjut{background:var(--soft);border:1px solid var(--line);border-radius:.75rem;padding:.7rem .9rem;font-size:.9rem;font-weight:600}
 
+/* Kartu menu di beranda (seperti MBS Care) */
+.menu-kartu{display:flex;flex-direction:column;gap:14px}
+.menu-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 8px}
+.menu-ubin{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--ink);text-align:center;border-radius:1rem;padding:6px 2px;transition:transform .15s}
+.menu-ubin:active{transform:scale(.96)}
+.menu-ubin:focus-visible{outline:2px solid var(--emas);outline-offset:2px}
+.menu-ikon{position:relative;display:grid;place-items:center;width:54px;height:54px;border-radius:18px;color:var(--warna);background:color-mix(in srgb, var(--warna) 13%, var(--surface));border:1px solid color-mix(in srgb, var(--warna) 22%, var(--surface))}
+.menu-label{font-family:var(--display);font-weight:600;font-size:.78rem;line-height:1.3}
+.menu-titik{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;border-radius:99px;background:var(--bad);color:#fff;font-size:.66rem;font-weight:700;display:grid;place-items:center;border:2px solid var(--surface)}
+@media (min-width:821px){ .menu-grid{grid-template-columns:repeat(4,minmax(0,1fr))} .menu-ubin:hover .menu-ikon{background:color-mix(in srgb, var(--warna) 20%, var(--surface))} }
+/* Ponsel & tablet: bilah menu disembunyikan ‚Äî menu ada di beranda, tiap halaman punya tombol kembali */
+.kembali{display:none}
+@media (max-width:820px){
+  nav.side{display:none}
+  .kembali{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;text-decoration:none;font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:.45rem 1rem;margin-bottom:4px;box-shadow:var(--shadow)}
+}
+
 </style>
 <style>
-/* Kartu peserta seleksi — tegak, seukuran ID card (55 × 85 mm).
-   Perbandingannya tetap 22 × 34 em dan seluruh isinya memakai em: besar kartu
-   diatur lewat font-size pembungkusnya saja (13–16 px di layar; 2,5 mm di
+/* Kartu peserta seleksi ‚Äî tegak, seukuran ID card (55 √ó 85 mm).
+   Perbandingannya tetap 22 √ó 34 em dan seluruh isinya memakai em: besar kartu
+   diatur lewat font-size pembungkusnya saja (13‚Äì16 px di layar; 2,5 mm di
    kertas, sehingga 22 em = 55 mm dan 34 em = 85 mm).
    Warnanya tetap, bukan token tema, karena ini benda cetak: tampil sama di
    layar terang, gelap, dan kertas. Aksen (--kp-a) biru untuk SMP, merah SMA. */
@@ -425,7 +442,7 @@ document.getElementById('ikonLogo').href = LOGO_PSB;
  * Alamat server portal (Google Apps Script).
  *
  * Tempel di sini alamat "Web app" yang didapat setelah menerbitkan Apps Script
- * — bentuknya https://script.google.com/macros/s/…/exec. Lihat README.md.
+ * ‚Äî bentuknya https://script.google.com/macros/s/‚Ä¶/exec. Lihat README.md.
  *
  * Alamat ini memang terbaca siapa pun yang membuka halaman; itu tidak apa-apa.
  * Yang menjaga data adalah skripnya, bukan kerahasiaan alamatnya.
@@ -444,11 +461,11 @@ const simpanan = {
   set(k,v){ try{ v === null ? localStorage.removeItem(k) : localStorage.setItem(k,v) }catch(e){} },
 };
 
-/* ── Teks portal ──
+/* ‚îÄ‚îÄ Teks portal ‚îÄ‚îÄ
    Seluruh tulisan tetap (judul, menu, label, kalimat) dikirim server dari
    lembar "Teks" di spreadsheet, sehingga panitia bisa mengubahnya tanpa
    menyentuh kode. Penanda seperti {nama} diisi di sini.
-   T  → teks aman-HTML;  TB → sama, nilai penandanya ditebalkan;  Tp → teks polos. */
+   T  ‚Üí teks aman-HTML;  TB ‚Üí sama, nilai penandanya ditebalkan;  Tp ‚Üí teks polos. */
 let TEKS = {};
 function pakaiTeks(t){ if(t && typeof t === 'object') TEKS = t; }
 function isiPenanda(teks, nilai, bungkus){
@@ -481,7 +498,7 @@ async function panggil(aksi, isi){
   catch(e){ throw new Error('Jawaban server tidak dapat dibaca. Coba lagi beberapa saat.'); }
 }
 
-/* Tanggal — selalu ditulis dalam WIB, apa pun zona waktu perangkatnya. */
+/* Tanggal ‚Äî selalu ditulis dalam WIB, apa pun zona waktu perangkatnya. */
 const fmt = o => new Intl.DateTimeFormat('id-ID', Object.assign({ timeZone:'Asia/Jakarta' }, o));
 const fTgl = d => fmt({day:'numeric',month:'long',year:'numeric'}).format(d);
 const fPendek = d => fmt({day:'numeric',month:'short'}).format(d);
@@ -489,11 +506,11 @@ const fJam = d => fmt({hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(
 const fHari = d => fmt({day:'numeric'}).format(d);
 const fBulan = d => fmt({month:'long',year:'numeric'}).format(d);
 const tgl0 = s => new Date(s + 'T12:00:00+07:00');
-/* "Ahad", bukan "Minggu" — mengikuti penamaan hari di pesantren. */
+/* "Ahad", bukan "Minggu" ‚Äî mengikuti penamaan hari di pesantren. */
 const fLengkap = s => fmt({weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(tgl0(s)).replace(/^Minggu/,'Ahad');
 
 /* Tulisan tahap tes: "19 Desember 2026", atau "19 atau 20 Desember 2026" bila
-   terentang beberapa hari — seleksinya sehari saja per peserta, dan tanda
+   terentang beberapa hari ‚Äî seleksinya sehari saja per peserta, dan tanda
    rentang membuat orang tua mengira anaknya harus hadir dua hari. */
 function rentangTes(mulaiIso, selesaiIso){
   const a = new Date(mulaiIso), b = new Date(selesaiIso);
@@ -518,10 +535,10 @@ function kartuHTML(a, info){
     <div class="kp-tengah"><div class="kp-foto">${a.foto ? `<img src="${esc(a.foto)}" alt="">` : `<div><b>${esc(inisial)}</b><small>${T('kartu_cetak_foto')}</small></div>`}</div></div>
     <div class="kp-bawah">
       <div class="kp-l">${T('kartu_cetak_nama')}</div><div class="kp-v nama${String(a.nama).length > 22 ? ' kecil' : ''}">${esc(a.nama)}</div>
-      <div class="kp-l">${T('kartu_cetak_asal')}</div><div class="kp-v sekolah">${esc(a.asal) || '—'}</div>
+      <div class="kp-l">${T('kartu_cetak_asal')}</div><div class="kp-v sekolah">${esc(a.asal) || '‚Äî'}</div>
       <div class="kp-2">
-        <div><div class="kp-l">${T('kartu_cetak_tanggal')}</div><div class="kp-v tgl">${esc(a.hariTes ? fLengkap(a.hariTes) : (info.tanggalTes || '—'))}</div></div>
-        <div><div class="kp-l">${T('kartu_cetak_ruang')}</div><div class="kp-v">${esc(a.ruang) || '—'}</div></div>
+        <div><div class="kp-l">${T('kartu_cetak_tanggal')}</div><div class="kp-v tgl">${esc(a.hariTes ? fLengkap(a.hariTes) : (info.tanggalTes || '‚Äî'))}</div></div>
+        <div><div class="kp-l">${T('kartu_cetak_ruang')}</div><div class="kp-v">${esc(a.ruang) || '‚Äî'}</div></div>
         <div><div class="kp-l">${T('kartu_cetak_kode')}</div><div class="kp-v">${esc(a.kode)}</div></div>
         <div><div class="kp-l">${T('kartu_cetak_jenjang')}</div><div class="kp-v">${esc(a.jenjang)}</div></div>
       </div>
@@ -532,7 +549,7 @@ function kartuHTML(a, info){
 </script>
 <script>
 /* Portal calon santri. Seluruh data datang dari server (Apps Script); halaman
-   ini tidak menyimpan data peserta — yang disimpan di peramban hanya token
+   ini tidak menyimpan data peserta ‚Äî yang disimpan di peramban hanya token
    sesi dan daftar pengumuman yang sudah dibaca.
 
    Tulisan tetap (judul, menu, label, kalimat) TIDAK ditulis di sini: semuanya
@@ -542,7 +559,7 @@ function kartuHTML(a, info){
 
 const KUNCI_TOKEN = 'psb_token';
 let D = null;            // jawaban server terakhir: peserta, hasil, tahap, info, kisi, jadwal, pengumuman, teks
-let selisih = 0;         // jam server − jam perangkat (ms), agar hitung mundur tidak ikut jam ponsel yang keliru
+let selisih = 0;         // jam server ‚àí jam perangkat (ms), agar hitung mundur tidak ikut jam ponsel yang keliru
 let filterKat = '', editKartu = false, pesan = '', galat = '', sibuk = false, fotoBaru = '';
 let buktiBaru = null;     // bukti pembayaran yang dipilih, belum dikirim: {data, nama, gambar}
 
@@ -553,7 +570,7 @@ const TAUT = { SIAP:['kartu','taut_kartu'], TES:['jadwal','taut_jadwal'], UMUM:[
 
 /* Menu Daftar Ulang dan Kedatangan baru muncul setelah calon santri dinyatakan
    lulus. Sebelum pengumuman dibuka server belum mengirim statusnya, jadi
-   kedua menu itu pasti tersembunyi — kemunculannya tidak bisa membocorkan hasil. */
+   kedua menu itu pasti tersembunyi ‚Äî kemunculannya tidak bisa membocorkan hasil. */
 const KHUSUS_LULUS = ['ulang','datang'];
 const lulus = () => Boolean(D && D.hasil.terbuka && D.hasil.status === 'LULUS');
 const menuTampil = () => MENU.filter(([id]) => lulus() || !KHUSUS_LULUS.includes(id));
@@ -567,7 +584,7 @@ function rentang(t){
   const a = mulai(t), b = akhir(t);
   if(fPendek(a) === fPendek(b) || t.kunci === 'UMUM') return fTgl(a);
   if(t.kunci === 'TES') return rentangTes(t.mulai, t.selesai);
-  return fPendek(a) + ' – ' + fTgl(b);
+  return fPendek(a) + ' ‚Äì ' + fTgl(b);
 }
 /* Calon santri yang sudah punya hari tes melihat harinya sendiri. */
 const rt = t => t.kunci === 'TES' && D && D.peserta.hariTes ? fTgl(tgl0(D.peserta.hariTes)) : rentang(t);
@@ -587,11 +604,11 @@ function galatLogin(teks){ const e = $('loginErr'); e.textContent = teks; e.hidd
 
 $('loginForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const kode = $('kode').value.toUpperCase().replace(/[\s.\-–—_]+/g, ''), lahir = $('lahir').value;
+  const kode = $('kode').value.toUpperCase().replace(/[\s.\-‚Äì‚Äî_]+/g, ''), lahir = $('lahir').value;
   if(!/^[A-Z]{3}\d{3}$/.test(kode)) return galatLogin(Tp('login_galat_format') || 'Kode registrasi belum sesuai format.');
   if(!lahir) return galatLogin(Tp('login_galat_lahir') || 'Isi tanggal lahir calon santri.');
   galatLogin('');
-  const tombol = $('loginBtn'), asal = tombol.textContent; tombol.disabled = true; tombol.textContent = Tp('login_memeriksa') || '…';
+  const tombol = $('loginBtn'), asal = tombol.textContent; tombol.disabled = true; tombol.textContent = Tp('login_memeriksa') || '‚Ä¶';
   try{
     const j = await panggil('masuk', { kode, lahir });
     if(!j.ok) return galatLogin(j.pesan || 'Tidak dapat masuk.');
@@ -618,28 +635,28 @@ const dibaca = () => { try{ return JSON.parse(simpanan.get(kunciBaca()) || '[]')
 const belumBaca = () => { const b = dibaca(); return D.pengumuman.filter(p => !b.includes(p.id)).length };
 const urutUmum = () => [...D.pengumuman].sort((a,b) => (b.sematkan?1:0)-(a.sematkan?1:0) || b.tanggal.localeCompare(a.tanggal));
 const notis = () => { const h = (pesan?`<div class="okmsg" role="status">${esc(pesan)}</div>`:'') + (galat?`<div class="err" role="alert">${esc(galat)}</div>`:''); pesan = ''; galat = ''; return h; };
-/* "Selasa, 12 Januari 2027" — dengan Ahad, bukan Minggu. */
+/* "Selasa, 12 Januari 2027" ‚Äî dengan Ahad, bukan Minggu. */
 const fHariTgl = d => fmt({weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d).replace(/^Minggu/,'Ahad');
 const kontak = () => D.info.kontak ? `<div class="card"><p class="muted" style="font-size:.88rem">${esc(D.info.kontak)}</p></div>` : '';
 
 /* Satu pengumuman = satu kartu yang bisa dibuka-tutup: tanggal sebagai ubin di
    kiri, judul dan cuplikan satu-dua baris di kanan. Isi lengkapnya baru tampil
    saat diketuk, sehingga daftar pengumuman bisa dipindai sekilas tanpa
-   tenggelam dalam teks. <details> bawaan peramban — tetap berfungsi tanpa skrip. */
+   tenggelam dalam teks. <details> bawaan peramban ‚Äî tetap berfungsi tanpa skrip. */
 function artikel(p){
   const baru = !dibaca().includes(p.id), t = tgl0(p.tanggal);
-  /* Isi dipecah per baris kosong menjadi paragraf; baris berawalan "-" atau "•" menjadi butir. */
+  /* Isi dipecah per baris kosong menjadi paragraf; baris berawalan "-" atau "‚Ä¢" menjadi butir. */
   const blok = String(p.isi).split(/\n\s*\n/).map(x => x.trim()).filter(Boolean).map(par => {
     const baris = par.split('\n').map(x => x.trim()).filter(Boolean);
-    return baris.length > 1 && baris.every(x => /^[-•*]\s+/.test(x))
-      ? `<ul>${baris.map(x => `<li>${esc(x.replace(/^[-•*]\s+/, ''))}</li>`).join('')}</ul>`
+    return baris.length > 1 && baris.every(x => /^[-‚Ä¢*]\s+/.test(x))
+      ? `<ul>${baris.map(x => `<li>${esc(x.replace(/^[-‚Ä¢*]\s+/, ''))}</li>`).join('')}</ul>`
       : `<p>${baris.map(esc).join('<br>')}</p>`;
   }).join('');
   return `<details class="umum${p.sematkan ? ' semat' : ''}${baru ? ' baru' : ''}">
     <summary>
       <span class="umum-tgl" aria-hidden="true"><b>${fHari(t)}</b><span>${fmt({month:'short'}).format(t)}</span><small>${fmt({year:'numeric'}).format(t)}</small></span>
       <span class="umum-isi">
-        <span class="umum-pil">${p.sematkan ? `<span class="pill warn">📌 ${T('umum_disematkan')}</span>` : ''}<span class="pill idle">${esc(p.kategori)}</span>${baru ? `<span class="pill bad">${T('umum_baru')}</span>` : ''}</span>
+        <span class="umum-pil">${p.sematkan ? `<span class="pill warn">üìå ${T('umum_disematkan')}</span>` : ''}<span class="pill idle">${esc(p.kategori)}</span>${baru ? `<span class="pill bad">${T('umum_baru')}</span>` : ''}</span>
         <span class="umum-judul">${esc(p.judul)}</span>
         <span class="umum-cuplik">${esc(p.isi)}</span>
         <span class="umum-buka" aria-hidden="true"><span class="baca">${T('umum_baca')}</span><span class="tutup">${T('umum_tutup')}</span></span>
@@ -649,7 +666,7 @@ function artikel(p){
   </details>`;
 }
 
-/* Kotak pelunasan dan unggah bukti bayar — hanya untuk yang lulus. Rincian
+/* Kotak pelunasan dan unggah bukti bayar ‚Äî hanya untuk yang lulus. Rincian
    rekening datang dari lembar "Pelunasan"; status bukti dari lembar "Bukti Bayar". */
 function pelunasan(r){
   const p = r.pelunasan || { catatan: [] }, bk = r.bukti, batas = p.batas ? new Date(p.batas) : null;
@@ -676,9 +693,9 @@ function pelunasan(r){
     <form class="card stack bukti" id="formBukti" novalidate>
       <div class="row" style="justify-content:space-between;align-items:baseline"><h2>${T('bukti_judul')}</h2>${st ? `<span class="pill ${st[0]}">${T(st[1])}</span>` : ''}</div>
       ${st ? `<div class="bukti-status ${st[0]}"><p>${T(st[2])}</p>
-        ${wkt ? `<small>${T('bukti_diunggah', { tanggal: fTgl(wkt), jam: fJam(wkt) })}${bk.jenis ? ' · ' + esc(bk.jenis) : ''}</small>` : ''}
+        ${wkt ? `<small>${T('bukti_diunggah', { tanggal: fTgl(wkt), jam: fJam(wkt) })}${bk.jenis ? ' ¬∑ ' + esc(bk.jenis) : ''}</small>` : ''}
         ${bk.catatan ? `<p><b>${T('bukti_catatan_panitia', { catatan: bk.catatan })}</b></p>` : ''}</div>
-        <p class="taut-lanjut"><a href="#ulang">${T('hasil_ulang_taut')} →</a></p>` : ''}
+        <p class="taut-lanjut"><a href="#ulang">${T('hasil_ulang_taut')} ‚Üí</a></p>` : ''}
       ${!bolehUnggah ? (bk ? '' : `<p class="catatan">${T('bukti_ditutup')}</p>`) : `
         <p class="muted" style="font-size:.88rem">${T('bukti_petunjuk')}</p>
         <div class="unggah${buktiBaru && buktiBaru.gambar ? '' : ' tanpa-pratinjau'}">
@@ -694,10 +711,33 @@ function pelunasan(r){
 }
 
 /* ================= TAMPILAN ================= */
-/* Warna tiap tahap di beranda, berurutan dari biru ke merah muda lalu emas —
+/* Warna tiap tahap di beranda, berurutan dari biru ke merah muda lalu emas ‚Äî
    mengikuti desain tahapan pendaftaran Malika. */
 const WARNA_TAHAP = ['#3b6fe0', '#6f7ff0', '#a86ae8', '#d9609a', '#e0794f', '#c98410'];
 const IKON_KALENDER = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M16 3v3M8 3v3M3 10h18M9 15l2 2 4-4"/></svg>';
+
+/* Menu sebagai kartu di beranda, seperti beranda MBS Care: satu kotak berisi
+   ubin berikon, tiga per baris. Di ponsel inilah satu-satunya menu; bilah menu
+   di atas disembunyikan, dan tiap halaman punya tombol kembali ke beranda.
+   [kunci teks nama, warna, isi ikon (SVG 24√ó24, garis)] */
+const UBIN = {
+  kisi:      ['ubin_kisi', '#3b6fe0', '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>'],
+  jadwal:    ['ubin_jadwal', '#a86ae8', '<rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>'],
+  kartu:     ['ubin_kartu', '#6f7ff0', '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.5 16.5c.6-1.4 1.7-2 3-2s2.4.6 3 2M14.5 10h4M14.5 14h4"/>'],
+  hasil:     ['ubin_hasil', '#d9609a', '<circle cx="12" cy="8.5" r="5.5"/><path d="M15.2 13 16.5 22 12 19.5 7.5 22l1.3-9"/>'],
+  ulang:     ['ubin_ulang', '#e0794f', '<rect x="8" y="2.5" width="8" height="4" rx="1"/><path d="M16 4.5h2a2 2 0 0 1 2 2V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6.5a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>'],
+  datang:    ['ubin_datang', '#c98410', '<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
+  pengumuman:['ubin_pengumuman', '#0f9488', '<path d="M6 8.5a6 6 0 0 1 12 0c0 6.5 3 8.5 3 8.5H3s3-2 3-8.5"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>'],
+};
+function menuKartu(){
+  const n = belumBaca();
+  return `<section class="card menu-kartu" aria-label="${T('beranda_judul_menu')}"><h2>${T('beranda_judul_menu')}</h2>
+    <div class="menu-grid">${menuTampil().filter(([id]) => UBIN[id]).map(([id]) => `
+      <a class="menu-ubin" href="#${id}" style="--warna:${UBIN[id][1]}">
+        <span class="menu-ikon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${UBIN[id][2]}</svg>${id==='pengumuman' && n ? `<span class="menu-titik">${n}</span>` : ''}</span>
+        <span class="menu-label">${T(UBIN[id][0])}</span>
+      </a>`).join('')}</div></section>`;
+}
 
 const V = {
   beranda(){
@@ -712,19 +752,20 @@ const V = {
       <p>${aktif ? TB('beranda_tahap_kini', { tahap: aktif.judul, tanggal: rt(aktif) }) : T('beranda_tahap_selesai')}</p></div>
     <div class="card"><div class="kv">
       <div><span class="label">${T('label_kode_registrasi')}</span><b class="mono">${esc(u.kode)}</b></div>
-      <div><span class="label">${T('label_jenjang')}</span><b>${esc(u.jenjang)} · ${esc(u.jk)}</b></div>
+      <div><span class="label">${T('label_jenjang')}</span><b>${esc(u.jenjang)} ¬∑ ${esc(u.jk)}</b></div>
       <div><span class="label">${T('beranda_label_tes')}</span><b>${hTes === null ? T('tes_menunggu') : hTes>0 ? T('hari_lagi', { jumlah: hTes }) : now()<=tAkhir ? T('tes_berlangsung') : T('status_selesai')}</b></div>
     </div></div>
+    ${menuKartu()}
     <section class="tahapan">
       <div class="tahapan-kepala"><h2>${T('beranda_judul_tahapan')}</h2>${TEKS.beranda_subjudul_tahapan ? `<p>${T('beranda_subjudul_tahapan', { lembaga: D.info.lembaga })}</p>` : ''}</div>
       ${D.tahap.length ? `<ol class="tahapan-daftar">${D.tahap.map((t,i) => { const s = statusTahap(t), l = TAUT[t.kunci]; return `
         <li class="tahap-kartu ${s}" style="--warna-tahap:${WARNA_TAHAP[i % WARNA_TAHAP.length]}">
           <span class="tahap-no" aria-hidden="true">${String(i+1).padStart(2,'0')}</span>
           <div class="tahap-isi">
-            <div class="tahap-judul"><h3>${esc(t.judul)}</h3>${s==='done' ? `<span class="pill ok">✓ ${T('status_selesai')}</span>` : s==='active' ? `<span class="pill warn">${T('status_berlangsung')}</span>` : ''}</div>
+            <div class="tahap-judul"><h3>${esc(t.judul)}</h3>${s==='done' ? `<span class="pill ok">‚úì ${T('status_selesai')}</span>` : s==='active' ? `<span class="pill warn">${T('status_berlangsung')}</span>` : ''}</div>
             ${t.keterangan ? `<p class="tahap-ket">${esc(t.keterangan)}</p>` : ''}
             <p class="tahap-tgl">${IKON_KALENDER}<span>${rentang(t)}</span></p>
-            ${l && (lulus() || !KHUSUS_LULUS.includes(l[0])) ? `<a class="tahap-taut" href="#${l[0]}">${T(l[1])} →</a>` : ''}
+            ${l && (lulus() || !KHUSUS_LULUS.includes(l[0])) ? `<a class="tahap-taut" href="#${l[0]}">${T(l[1])} ‚Üí</a>` : ''}
           </div>
         </li>`}).join('')}</ol>` : `<p class="muted">${T('tahapan_kosong')}</p>`}
     </section>
@@ -734,9 +775,9 @@ const V = {
   kisi(){
     const u = D.peserta, tes = tahap('TES');
     return `
-    <div class="head"><p class="label">${T('kisi_label', { jenjang: u.jenjang })}</p><h1>${T('kisi_judul')}</h1><p>${T('kisi_pembuka', { jumlah: D.kisi.length, jenjang: u.jenjang, tanggal: tes ? rt(tes) : '—' })}</p></div>
+    <div class="head"><p class="label">${T('kisi_label', { jenjang: u.jenjang })}</p><h1>${T('kisi_judul')}</h1><p>${T('kisi_pembuka', { jumlah: D.kisi.length, jenjang: u.jenjang, tanggal: tes ? rt(tes) : '‚Äî' })}</p></div>
     <div class="stack" style="gap:10px">${D.kisi.map((k,i) => `
-      <details class="kisi"${i===0?' open':''}><summary><h3>${esc(k.materi)}</h3><span class="meta">${esc([k.bentuk,k.durasi].filter(Boolean).join(' · '))}</span></summary>
+      <details class="kisi"${i===0?' open':''}><summary><h3>${esc(k.materi)}</h3><span class="meta">${esc([k.bentuk,k.durasi].filter(Boolean).join(' ¬∑ '))}</span></summary>
       <div class="body"><ul>${k.cakupan.map(m => `<li>${esc(m)}</li>`).join('')}</ul></div></details>`).join('') || `<div class="card muted">${T('kisi_kosong')}</div>`}</div>`;
   },
 
@@ -745,14 +786,14 @@ const V = {
     return `
     <div class="head"><h1>${T('jadwal_judul')}</h1><p>${u.hariTes ? TB('jadwal_pembuka', { tanggal: fLengkap(u.hariTes) }) : T('jadwal_pembuka_belum')}</p></div>
     <div class="card"><div class="kv">
-      <div><span class="label">${T('label_no_peserta')}</span><b class="mono">${esc(u.noPeserta) || '—'}</b></div>
+      <div><span class="label">${T('label_no_peserta')}</span><b class="mono">${esc(u.noPeserta) || '‚Äî'}</b></div>
       <div><span class="label">${T('label_ruang_tes')}</span><b>${esc(u.ruang) || T('ruang_menunggu')}</b></div>
-      <div><span class="label">${T('label_lokasi')}</span><b>${esc(u.lokasi) || '—'}</b></div>
-      <div><span class="label">${T('label_kelompok')}</span><b>${esc(u.jk)}${u.sesi ? ' · ' + T('jadwal_sesi', { sesi: String(u.sesi).toLowerCase() }) : ''}</b></div>
+      <div><span class="label">${T('label_lokasi')}</span><b>${esc(u.lokasi) || '‚Äî'}</b></div>
+      <div><span class="label">${T('label_kelompok')}</span><b>${esc(u.jk)}${u.sesi ? ' ¬∑ ' + T('jadwal_sesi', { sesi: String(u.sesi).toLowerCase() }) : ''}</b></div>
     </div></div>
     ${D.jadwal.map(h => `<div class="card stack"><h2>${esc(h.hari || (h.tanggal ? fLengkap(h.tanggal) : ''))}</h2><div class="tbl-wrap"><table>
       <thead><tr><th>${T('jadwal_kol_waktu')}</th><th>${T('jadwal_kol_kegiatan')}</th><th>${T('jadwal_kol_durasi')}</th><th>${T('jadwal_kol_keterangan')}</th></tr></thead>
-      <tbody>${h.acara.map(a => `<tr><td class="time">${esc(a[0])}</td><td>${esc(a[1])}</td><td style="white-space:nowrap">${esc(a[2]) || '–'}</td><td class="muted">${esc(isiTempat(a[3]||'',u)) || '–'}</td></tr>`).join('')}</tbody></table></div>
+      <tbody>${h.acara.map(a => `<tr><td class="time">${esc(a[0])}</td><td>${esc(a[1])}</td><td style="white-space:nowrap">${esc(a[2]) || '‚Äì'}</td><td class="muted">${esc(isiTempat(a[3]||'',u)) || '‚Äì'}</td></tr>`).join('')}</tbody></table></div>
       ${D.info.catatanJadwal ? `<p class="catatan">${esc(D.info.catatanJadwal)}</p>` : ''}</div>`).join('') || `<div class="card muted">${T('jadwal_kosong')}</div>`}`;
   },
 
@@ -779,7 +820,7 @@ const V = {
     return `
     <div class="head"><h1>${T('kartu_judul')}</h1><p>${T('kartu_pembuka')}</p></div>
     ${notis()}
-    ${!boleh ? `<p class="catatan">${T('kartu_tutup', { tanggal: batas ? fTgl(batas) : '—' })}</p>`
+    ${!boleh ? `<p class="catatan">${T('kartu_tutup', { tanggal: batas ? fTgl(batas) : '‚Äî' })}</p>`
       : editKartu ? form : `<div class="row" style="justify-content:center"><button type="button" class="btn" data-act="kartu-edit">${T('kartu_tombol_edit')}</button></div>`}
     <div class="kartu-wadah">${kartuHTML(u, Object.assign({ tanggalTes: tahap('TES') ? rentang(tahap('TES')) : '' }, D.info))}</div>
     ${D.info.tataTertib.length ? `<div class="card stack"><h3>${T('kartu_judul_tata_tertib')}</h3><ul class="daftar">${D.info.tataTertib.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}`;
@@ -787,7 +828,7 @@ const V = {
 
   hasil(){
     const u = D.peserta, r = D.hasil;
-    /* Sebelum waktu pengumuman, server memang tidak mengirim statusnya —
+    /* Sebelum waktu pengumuman, server memang tidak mengirim statusnya ‚Äî
        `r` hanya berisi {terbuka:false, dibukaPada}. Nilai per materi tidak
        pernah dikirim; portal hanya mengumumkan status. */
     if(!r.terbuka){
@@ -819,16 +860,16 @@ const V = {
     <div class="head"><h1>${T('menu_ulang')}</h1><p>${t ? `${rentang(t)}. ${esc(t.keterangan)}` : ''}</p></div>
     ${t ? `<div class="card"><div class="kv">
       <div><span class="label">${T('ulang_label_mulai')}</span><b>${fTgl(mulai(t))}</b></div>
-      <div><span class="label">${T('ulang_label_batas')}</span><b>${fTgl(akhir(t))} · ${fJam(akhir(t))} WIB</b></div>
+      <div><span class="label">${T('ulang_label_batas')}</span><b>${fTgl(akhir(t))} ¬∑ ${fJam(akhir(t))} WIB</b></div>
       <div><span class="label">${T('label_status')}</span><b><span class="pill ${s==='active'?'warn':'idle'}">${s==='done' ? T('hasil_ulang_tutup') : s==='active' ? T('status_berlangsung') : T('ulang_status_belum')}</span></b></div>
     </div></div>` : ''}
-    <p class="catatan">${TB('ulang_catatan', { nama: u.nama, tanggal: t ? fTgl(akhir(t)) : '—' })}</p>
+    <p class="catatan">${TB('ulang_catatan', { nama: u.nama, tanggal: t ? fTgl(akhir(t)) : '‚Äî' })}</p>
     <h2 class="sub-judul">${T('ulang_judul_langkah')}</h2>
     <div class="stack" style="gap:10px">${D.info.daftarUlang.map((x,i) => `
       <details class="kisi langkah"${i===0?' open':''}><summary><h3><span class="langkah-no">${i+1}</span>${esc(x.judul)}</h3></summary>
       ${x.keterangan.length || x.tautan ? `<div class="body">
         ${x.keterangan.length ? `<ul>${x.keterangan.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
-        ${x.tautan ? `<a class="btn tombol-tautan" href="${esc(x.tautan)}" target="_blank" rel="noopener noreferrer">${esc(x.teksTautan) || T('ulang_tombol_tautan')} ↗</a>` : ''}
+        ${x.tautan ? `<a class="btn tombol-tautan" href="${esc(x.tautan)}" target="_blank" rel="noopener noreferrer">${esc(x.teksTautan) || T('ulang_tombol_tautan')} ‚Üó</a>` : ''}
       </div>` : ''}</details>`).join('') || `<div class="card muted">${T('ulang_kosong')}</div>`}</div>
     ${kontak()}`;
   },
@@ -873,8 +914,8 @@ $('view').addEventListener('click', e => {
   render();
 });
 
-/* Pas foto dipotong di peramban — bagian tengah, 3:4, lalu diperkecil ke
-   300 × 400 — sebelum dikirim. Foto kamera ponsel lazimnya 3–8 MB; yang sampai
+/* Pas foto dipotong di peramban ‚Äî bagian tengah, 3:4, lalu diperkecil ke
+   300 √ó 400 ‚Äî sebelum dikirim. Foto kamera ponsel lazimnya 3‚Äì8 MB; yang sampai
    ke server hanya puluhan kilobita. */
 async function potongFoto(berkas){
   if(!['image/jpeg','image/png'].includes(berkas.type)) throw new Error(Tp('galat_foto_jenis'));
@@ -988,14 +1029,15 @@ function render(){
   $('brandSub').textContent = Tp('kepala_portal', { tahun_ajaran: D.info.tahunAjaran });
   $('whoName').textContent = u.nama;
   $('whoKode').textContent = u.kode;
-  $('view').innerHTML = V[r]();
+  /* Tombol kembali hanya tampil di layar sempit (lihat gaya.css), tempat bilah menu disembunyikan. */
+  $('view').innerHTML = (r === 'beranda' ? '' : `<a class="kembali" href="#beranda">‚Üê ${T('tombol_kembali_beranda')}</a>`) + V[r]();
   if(r === 'pengumuman') simpanan.set(kunciBaca(), JSON.stringify(D.pengumuman.map(p => p.id)));
   const n = belumBaca();
   $('nav').innerHTML = menu.map(([id,k]) => `<a href="#${id}"${id===r?' aria-current="page"':''}>${T(k)}${id==='pengumuman'&&n?`<span class="dot">${n}</span>`:''}</a>`).join('');
 }
 window.addEventListener('hashchange', () => { editKartu = false; fotoBaru = ''; buktiBaru = null; render(); window.scrollTo(0,0); });
 
-/* Data disegarkan saat halaman dibuka kembali — hasil seleksi muncul sendiri
+/* Data disegarkan saat halaman dibuka kembali ‚Äî hasil seleksi muncul sendiri
    begitu waktunya tiba, dan perubahan teks dari panitia ikut terbawa. */
 async function segarkan(){
   const token = simpanan.get(KUNCI_TOKEN);
