@@ -586,14 +586,28 @@ $('formSandi').addEventListener('submit', async e => {
   if(!sandi) return galatCetak('Isi sandi cetak kartu.');
   galatCetak(''); tombol.disabled = true;
   try{
-    semua = [];
-    for(let hal = 1, jumlah = 1; hal <= jumlah; hal++){
-      tombol.textContent = jumlah > 1 ? `Memuat ${hal}/${jumlah}\u2026` : 'Memuat\u2026';
-      const j = await panggil('kartu', { sandi, halaman: hal });
-      if(!j.ok) throw new Error(j.pesan || 'Tidak dapat memuat kartu.');
-      pakaiTeks(j.teks);
-      info = Object.assign({ tanggalTes: j.tes ? rentangTes(j.tes.mulai, j.tes.selesai) : '' }, j.info); jumlah = j.jumlahHalaman; semua.push(...j.kartu);
+    /* Halaman pertama dulu (sekaligus memeriksa sandi dan memberi tahu jumlah
+       halaman), lalu sisanya dimuat beberapa sekaligus \u2014 tiap halaman perlu
+       beberapa detik di server, jadi memuatnya berurutan terasa lama. */
+    tombol.textContent = 'Memuat\u2026';
+    const pertama = await panggil('kartu', { sandi, halaman: 1 });
+    if(!pertama.ok) throw new Error(pertama.pesan || 'Tidak dapat memuat kartu.');
+    pakaiTeks(pertama.teks);
+    info = Object.assign({ tanggalTes: pertama.tes ? rentangTes(pertama.tes.mulai, pertama.tes.selesai) : '' }, pertama.info);
+    const jumlah = pertama.jumlahHalaman, hasil = [pertama.kartu];
+    let selesai = 1;
+    tombol.textContent = `Memuat ${selesai}/${jumlah}\u2026`;
+    const sisa = Array.from({ length: jumlah - 1 }, (_, i) => i + 2);
+    const SEKALIGUS = 4;
+    for(let i = 0; i < sisa.length; i += SEKALIGUS){
+      await Promise.all(sisa.slice(i, i + SEKALIGUS).map(async hal => {
+        const j = await panggil('kartu', { sandi, halaman: hal });
+        if(!j.ok) throw new Error(j.pesan || 'Tidak dapat memuat kartu.');
+        hasil[hal - 1] = j.kartu;
+        tombol.textContent = `Memuat ${++selesai}/${jumlah}\u2026`;
+      }));
     }
+    semua = hasil.flat();
     $('sandi').value = '';
     $('namaLembaga').textContent = info.lembaga;
     const isiPilihan = (id, nilai, tulis) => { $(id).innerHTML = '<option value="">Semua</option>' + nilai.map(v => `<option value="${esc(v)}">${esc(tulis ? tulis(v) : v)}</option>`).join(''); };
