@@ -878,7 +878,7 @@ const V = {
     /* Halaman ini hanya terbuka bagi yang dinyatakan lulus (lihat menuTampil).
        Sengaja langsung ke daftar langkah, tanpa ringkasan tanggal di atasnya. */
     return `
-    <div class="head"><h1>${T('menu_ulang')}</h1></div>
+    <div class="head"><h1>${T('menu_ulang')}</h1>${TEKS.ulang_petunjuk ? `<p>${T('ulang_petunjuk')}</p>` : ''}</div>
     <h2 class="sub-judul">${T('ulang_judul_langkah')}</h2>
     <div class="stack" style="gap:10px">${D.info.daftarUlang.map((x,i) => `
       <details class="kisi langkah"${i===0?' open':''}><summary><h3><span class="langkah-no">${i+1}</span>${esc(x.judul)}</h3></summary>
