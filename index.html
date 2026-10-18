@@ -442,8 +442,8 @@ details.kisi.langkah .body{display:flex;flex-direction:column;gap:12px;align-ite
       <div class="err" id="loginErr" role="alert" hidden></div>
       <div class="field">
         <label for="kode" data-teks="login_label_kode">Kode registrasi</label>
-        <input id="kode" class="mono" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="MUH593" maxlength="10">
-        <small data-teks="login_bantuan_kode">Format: 3 huruf diikuti 3 angka, contoh MUH593.</small>
+        <input id="kode" class="mono" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ketik kode registrasi" data-teks-ph="login_placeholder_kode" maxlength="10">
+        <small data-teks="login_bantuan_kode">Format: 3 huruf diikuti 3 angka.</small>
       </div>
       <div class="field">
         <label for="lahir" data-teks="login_label_lahir">Tanggal lahir calon santri</label>
@@ -513,9 +513,10 @@ const T  = (kunci, nilai) => isiPenanda(esc(TEKS[kunci] ?? ''), nilai, v => esc(
 const TB = (kunci, nilai) => isiPenanda(esc(TEKS[kunci] ?? ''), nilai, v => '<b>' + esc(v) + '</b>');
 const Tp = (kunci, nilai) => isiPenanda(String(TEKS[kunci] ?? ''), nilai, v => v);
 
-/* Elemen ber-atribut data-teks diisi dari teks portal. */
+/* Elemen ber-atribut data-teks diisi dari teks portal; data-teks-ph mengisi placeholder isian. */
 function terapkanTeksStatis(nilai){
   document.querySelectorAll('[data-teks]').forEach(el => { const t = Tp(el.dataset.teks, nilai); if(t) el.textContent = t; });
+  document.querySelectorAll('[data-teks-ph]').forEach(el => { const t = Tp(el.dataset.teksPh, nilai); if(t) el.placeholder = t; });
 }
 
 /**
@@ -815,7 +816,8 @@ const V = {
     ${D.jadwal.map(h => `<div class="card stack"><h2>${esc(h.hari || (h.tanggal ? fLengkap(h.tanggal) : ''))}</h2><div class="tbl-wrap"><table class="jadwal-tbl">
       <thead><tr><th>${T('jadwal_kol_waktu')}</th><th>${T('jadwal_kol_kegiatan')}</th><th>${T('jadwal_kol_durasi')}</th><th>${T('jadwal_kol_keterangan')}</th></tr></thead>
       <tbody>${h.acara.map(a => { const ket = isiTempat(a[3]||'',u); return `<tr><td class="time">${esc(a[0])}</td><td class="kegiatan">${esc(a[1])}</td><td class="durasi${a[2] ? '' : ' kosong'}">${esc(a[2]) || '\u2013'}</td><td class="muted ket${ket ? '' : ' kosong'}">${esc(ket) || '\u2013'}</td></tr>`; }).join('')}</tbody></table></div>
-      ${D.info.catatanJadwal ? `<p class="catatan">${esc(D.info.catatanJadwal)}</p>` : ''}</div>`).join('') || `<div class="card muted">${T('jadwal_kosong')}</div>`}`;
+      ${D.info.catatanJadwal ? `<p class="catatan">${esc(D.info.catatanJadwal)}</p>` : ''}</div>`).join('') || `<div class="card muted">${T('jadwal_kosong')}</div>`}
+    ${D.info.tataTertib.length ? `<div class="card stack"><h3>${T('kartu_judul_tata_tertib')}</h3><ul class="daftar">${D.info.tataTertib.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}`;
   },
 
   kartu(){
@@ -843,8 +845,7 @@ const V = {
     ${notis()}
     ${!boleh ? `<p class="catatan">${T('kartu_tutup', { tanggal: batas ? fTgl(batas) : '\u2014' })}</p>`
       : editKartu ? form : `<div class="row" style="justify-content:center"><button type="button" class="btn" data-act="kartu-edit">${T('kartu_tombol_edit')}</button></div>`}
-    <div class="kartu-wadah">${kartuHTML(u, Object.assign({ tanggalTes: tahap('TES') ? rentang(tahap('TES')) : '' }, D.info))}</div>
-    ${D.info.tataTertib.length ? `<div class="card stack"><h3>${T('kartu_judul_tata_tertib')}</h3><ul class="daftar">${D.info.tataTertib.map(t => `<li>${esc(t)}</li>`).join('')}</ul></div>` : ''}`;
+    <div class="kartu-wadah">${kartuHTML(u, Object.assign({ tanggalTes: tahap('TES') ? rentang(tahap('TES')) : '' }, D.info))}</div>`;
   },
 
   hasil(){
